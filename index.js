@@ -3,6 +3,10 @@ const express = require("express");
 const connection = require("./database/db");
 const app = express();
 
+// MODELS
+const Article = require('./articles/Article');
+const Categorie = require('./categories/Categorie')
+
 
 
 /* CONTROLADORES */
@@ -21,6 +25,8 @@ connection
     console.log(`Ocorreu algum erro na conexão com o DB: ${err}`);
   });
 
+
+// ROTAS
 app.use("/", categoriesController);
 app.use("/", articlesController);
 
