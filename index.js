@@ -3,6 +3,9 @@ const express = require("express");
 const connection = require("./database/db");
 const app = express();
 
+const categoriesController = require("./categories/CategoriesController")
+const articlesController = require("./articles/ArticlesController")
+
 
 // Conexão com o DATABASE
 connection
@@ -15,6 +18,10 @@ connection
   });
 
 
+
+
+  app.use('/', categoriesController);
+  app.use('/', articlesController)
 
 // CONFIGURAÇÃO DO EJS
 app.set("view engine", "ejs");
