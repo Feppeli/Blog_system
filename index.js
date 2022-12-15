@@ -3,8 +3,12 @@ const express = require("express");
 const connection = require("./database/db");
 const app = express();
 
-const categoriesController = require("./categories/CategoriesController")
-const articlesController = require("./articles/ArticlesController")
+
+
+/* CONTROLADORES */
+const categoriesController = require("./categories/CategoriesController");
+const articlesController = require("./articles/ArticlesController");
+
 
 
 // Conexão com o DATABASE
@@ -17,11 +21,8 @@ connection
     console.log(`Ocorreu algum erro na conexão com o DB: ${err}`);
   });
 
-
-
-
-  app.use('/', categoriesController);
-  app.use('/', articlesController)
+app.use("/", categoriesController);
+app.use("/", articlesController);
 
 // CONFIGURAÇÃO DO EJS
 app.set("view engine", "ejs");
@@ -29,17 +30,11 @@ app.use(
   express.static("public")
 ); /* Metodo que prevê utilização de js, css e arquivos do fronte pelo express */
 
-
-
 // CONFIGURANDO O BODYPARSER
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const port = 8080;
-
-
-
-
 
 // ROTAS
 app.get("/", (req, res) => {
