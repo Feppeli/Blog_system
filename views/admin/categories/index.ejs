@@ -22,7 +22,12 @@
                     <th><%=categorie.slug%></th>
                     <th>
                         <button class="btn btn-warning">Editar</button>
-                        <button class="btn btn-danger">Excluir</button>
+
+                        <form method="POST" action="/categories/delete" style="display: inline" onsubmit="confirmarExclusao(event, this)">
+                            <input type="hidden" name="id" value="<%= categorie.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+
                     </th>
                 </tr>
 
@@ -31,3 +36,15 @@
     </table>
 </div>
 <%- include ('../../partials/Footer') %>
+
+<!-- Sistema de segurança para evitar erros ao deletar o item -->
+<script>
+function confirmarExclusao(event, form){
+    event.preventDefault();
+    var decision = confirm('Confirmar exclusão?')
+    if(decision){
+        form.submit();
+    }
+
+}
+</script>
