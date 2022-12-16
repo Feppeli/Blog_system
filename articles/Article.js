@@ -26,7 +26,7 @@ na categorie  RELACIONAMENTO 1pM */
 Article.belongsTo(Categorie) /* Nesse metodo estou dizendo que cada artigo está
 relacionado a uma categoria  RELACIONAMENTO 1p1*/
 
-Article.sync({force: true})
+/* Article.sync({force: true}) */
 
 
 module.exports = Article;
