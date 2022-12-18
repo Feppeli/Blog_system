@@ -5,8 +5,13 @@ const Article = require('./Article')
 const Slugify = require('slugify');
 const { default: slugify } = require('slugify');
 
+
+
+
 router.get('/admin/articles', (req, res) => {
-    Article.findAll()
+    Article.findAll({
+        include: [{model: Categorie}] /* Metodo join pra puxar os dados de outra tabela sql */
+    })
     .then(articles => {
         res.render('admin/articles/index',{
             articles: articles
@@ -38,6 +43,27 @@ router.post('/articles/save', (req, res) => {
     .then(()=> {
         res.redirect('/admin/articles')
     })
+})
+
+router.post('/articles/delete', (req, res) => {
+
+    var id = req.body.id
+
+    if(id != undefined){
+        if(!isNaN(id)){
+            Article.destroy({
+                where: {
+                    id: id
+                }
+            }).then(() =>{ 
+                res.redirect('/admin/articles')
+            });
+        }else{ /* Se o id não for um numero */
+            res.redirect('/admin/articles')
+        }
+    }else{ /* se o id for NULL */
+        res.redirect('/admin/articles')
+    }
 })
 
 module.exports = router

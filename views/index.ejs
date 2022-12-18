@@ -1,7 +1,28 @@
 <%- include ('partials/header.ejs') %>
+<%- include ('partials/homeNavBar.ejs') %>
 <body>
-    <h1>funcionando</h1>
-    <button class="btn btn-danger">enviar</button>
+    <div class="container">
+        <hr>
+        <div class="jumbotron">
+            <h1 class="display-4">Bem vindo</h1>
+            <p class="lead">Este é o Mobypress</p>
+            <hr class="my-04">
+            <p>Este é um projeto que tem como objetivo estudos do Nodejs e utilização de suas tecnologias para a criação de um CRUD completo</p>
+            <a class="btn btn-primary btn-lg" role="button" href=".">Leia mais</a>
+        </div>
+        <hr>
+        <% articles.forEach(article => { %>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= article.title %></h2>
+                </div>
+                <div class="card-body">
+                    <a href="/<%=article.slug%>" class="btn btn-success">Ler artigo</a>
+                </div>
+            </div>
+        <% })%>
+    </div>
 </body>
 
 <%- include ('partials/footer') %>
