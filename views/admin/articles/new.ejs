@@ -1,5 +1,5 @@
-<%- include ('../../partials/header') %> <%- include ('../../partials/navBar')
-%>
+<%- include ('../../partials/header') %> <%- include ('../../partials/header')%>
+<%- include ('../../partials/header') %> <%- include ('../../partials/navBar')%>
 
 <div class="container">
   <hr />
@@ -8,20 +8,21 @@
       <h2>Novo artigos</h2>
     </div>
     <div class="card-body">
-      <form method="POST" action="/categories/save">
-        <input
-          class="form-control"
-          type="text"
-          name="title"
-          placeholder="Defina o titulo do artigo"
-        /><br />
-        <textarea
-          class="form-control"
-          name="body"
-          placeholder="Escreva o artigo aqui"
-          id="article"
-        ></textarea
-        ><br />
+      <form method="POST" action="/articles/save">
+        <input class="form-control" type="text" name="title" placeholder="Defina o titulo do artigo"/>
+        <br />
+        <textarea class="form-control" name="body" placeholder="Escreva o artigo aqui" id="article"></textarea> <br>
+        <label for="">Categoria</label>
+        <select name="categorie" class="form-control">
+
+          <% categories.forEach(categorie => { %>
+
+            <option value="<%=categorie.id%>"><%=categorie.title%></option>
+
+          <%})%>
+
+        </select>
+        <br />
         <button class="btn btn-success">Cadastrar</button>
       </form>
     </div>
@@ -52,6 +53,6 @@
       "paste",
       "emoticons",
     ],
-    language: 'pt_BR',
+    language: "pt_BR",
   });
 </script>

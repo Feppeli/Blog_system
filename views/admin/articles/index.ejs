@@ -1,0 +1,49 @@
+<%- include ('../../partials/header') %>
+<%- include ('../../partials/navBar') %>
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/new">Criar nova artigo</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead >
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% articles.forEach(article => { %>
+                <td><%=article.id%></td>
+                <td><%=article.title%></td>
+                <td><%=article.slug%></td>
+                <td><%=article.categoryId%></td>
+                <td>
+                    <a class="btn btn-warning" href="/admin/articles/edit/<%= article.id %>" >Editar</a>
+
+                        <form method="POST" action="/articles/delete" style="display: inline" onsubmit="confirmarExclusao(event, this)">
+                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+                </td>
+                <% })%>
+           
+        </tbody>
+    </table>
+</div>
+<%- include ('../../partials/Footer') %>
+
+<!-- Sistema de segurança para evitar erros ao deletar o item -->
+<script>
+function confirmarExclusao(event, form){
+    event.preventDefault();
+    var decision = confirm('Confirmar exclusão?')
+    if(decision){
+        form.submit();
+    }
+
+}
+</script>
