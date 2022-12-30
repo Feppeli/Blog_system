@@ -40,9 +40,12 @@ app.get("/", (req, res) => {
             ['id', 'DESC']
         ]
     }).then(article => {
+       Categorie.findAll().then(categories => {
         res.render("index", {
-            articles: article
+            articles: article,
+            categories: categories
         });
+       })
     })
 
 
@@ -57,13 +60,40 @@ app.get('/:slug', (req, res) => {
         }
     }).then(article => {
         if(article != undefined){
-            res.render('article',{
-                article: article
+            Categorie.findAll().then(categories => {
+                res.render('article', {
+                    article: article,
+                    categories: categories
+                })
             })
+/*             res.render('article',{
+                article: article
+            }) */
         }else{
             res.redirect('/')
         }
     }).catch(err => {
+        res.redirect('/')
+    })
+})
+
+app.get('/categorie/:slug', (req, res) => {
+    var slug = req.params.slug
+    Categorie.findOne({
+        where: {
+            slug: slug
+        },
+        include: [{model: Article}]
+    }).then(categorie => {
+        if(categorie != undefined){
+            Categorie.findAll().then(categorie => {
+                res.render('index', {articles: categorie.articles, categories: categorie})
+            })
+        }else{
+            res.redirect('/')
+        }
+    })
+    .catch(err => {
         res.redirect('/')
     })
 })

@@ -7,5 +7,20 @@
         <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
         </li>
+
+        <% categories.forEach(categorie => { %>
+            <li class="nav-item">
+                <a href="/categorie/<%= categorie.slug%>" class="nav-link"><%= categorie.title %></a>
+            </li>
+        <%})%>
+<!--         <% categories.forEach(categorie => { %>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/categorie/<%= categorie.slug%>"><%= categorie.title %></a>
+            </li>
+
+        <%})%> -->
+
+
     </ul>
 </nav>
