@@ -77,6 +77,8 @@ app.get('/:slug', (req, res) => {
     })
 })
 
+
+// NÃO MEXER PELO AMOR DE DEUS!!!!!!
 app.get('/categorie/:slug', (req, res) => {
     var slug = req.params.slug;
     Categorie.findOne({
