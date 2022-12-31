@@ -78,16 +78,16 @@ app.get('/:slug', (req, res) => {
 })
 
 app.get('/categorie/:slug', (req, res) => {
-    var slug = req.params.slug
+    var slug = req.params.slug;
     Categorie.findOne({
         where: {
             slug: slug
         },
         include: [{model: Article}]
-    }).then(categorie => {
+    }).then( categorie => {
         if(categorie != undefined){
-            Categorie.findAll().then(categorie => {
-                res.render('index', {articles: categorie.articles, categories: categorie})
+            Categorie.findAll().then(categories => {
+                res.render('index', {articles: categorie.articles, categories: categories})
             })
         }else{
             res.redirect('/')
