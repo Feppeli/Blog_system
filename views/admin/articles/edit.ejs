@@ -5,7 +5,7 @@
   <hr />
   <div class="card">
     <div class="card-header">
-      <h2>Novo artigos</h2>
+      <h2>Editar artigo</h2>
     </div>
     <div class="card-body">
       <form method="POST" action="/articles/update">
@@ -17,18 +17,27 @@
 
           <% categories.forEach(categorie => { %>
 
-            <option value="<%=categorie.id%>"><%=categorie.title%></option>
+            <% if(categorie.id == article.categoryId){ %>
+              <option value="<%=categorie.id%>" selected><%=categorie.title%></option>
+            <%}else{%>
+              <option value="<%=categorie.id%>"><%=categorie.title%></option>
+            <%}%>
+
+            
 
           <%})%>
 
         </select>
         <br />
         <input type="hidden" name="id" value="<%= article.id %>">
-        <button class="btn btn-success">Cadastrar</button>
+        <button class="btn btn-success">Atualizar</button>
 
       </form>
     </div>
   </div>
+</div>
+<div id="contenttxt" style="display: none;">
+  <%- article.body %>
 </div>
 
 <%- include ('../../partials/footer') %>
@@ -56,5 +65,8 @@
       "emoticons",
     ],
     language: "pt_BR",
+    init_instance_callback: () => {
+      tinymce.activeEditor.setContent(document.getElementById('contenttxt').innerHTML);
+    }
   });
 </script>
