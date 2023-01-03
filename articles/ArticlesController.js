@@ -141,6 +141,7 @@ router.get('/articles/page/:num', (req, res) => {
         }
 
         var result = {
+            page: parseInt(page),
             next: next,
             articles: articles,
 
@@ -149,7 +150,8 @@ router.get('/articles/page/:num', (req, res) => {
         Categorie.findAll().then(categories => {
             res.render('admin/articles/page', {
                 categories: categories,
-                result: result
+                result: result,
+                page:page
             })
         })
 
