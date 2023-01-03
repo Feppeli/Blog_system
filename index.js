@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/db");
+const session = require('express-session');
 
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
@@ -14,6 +15,21 @@ const User = require("./user/User")
 
 // View engine
 app.set('view engine','ejs');
+
+//session
+
+//redis
+/* Em projetos de média e longa escala deve ser utilizado o Redis para não 
+estourar o limite de memória da máquina ou servidor */
+
+
+app.use(session({
+    secret: "jdiweual9028@#8ijdo08@#*aooldkjnco$%#kbckkq73##$",
+    cookie: {
+        maxAge: 10800000
+    }
+}))
+
 
 // Static
 app.use(express.static('public'));
@@ -36,6 +52,16 @@ connection
 app.use("/",categoriesController);    
 app.use("/",articlesController);
 app.use("/",userControler);
+
+
+// manipulando as sessões
+app.get('session', (req, res) => {
+    
+})
+
+app.get('/leitura', (req, res) => {
+
+})
 
 
 app.get("/", (req, res) => {
