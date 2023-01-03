@@ -24,7 +24,7 @@ estourar o limite de memória da máquina ou servidor */
 
 
 app.use(session({
-    secret: "jdiweual9028@#8ijdo08@#*aooldkjnco$%#kbckkq73##$",
+    secret: "Ssdsd@#e$#Rfe@#$d#$#",
     cookie: {
         maxAge: 10800000
     }

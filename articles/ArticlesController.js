@@ -5,11 +5,13 @@ const Article = require('./Article')
 const Slugify = require('slugify');
 const { default: slugify } = require('slugify');
 const { application } = require('express');
+const adminAuth = require('../midllewares/adminAuth')
 
 
 
 
-router.get('/admin/articles', (req, res) => {
+router.get('/admin/articles',adminAuth, (req, res) => {
+    
     Article.findAll({
         include: [{model: Categorie}] /* Metodo join pra puxar os dados de outra tabela sql */
     })
@@ -20,7 +22,7 @@ router.get('/admin/articles', (req, res) => {
     })
 });
 
-router.get('/admin/articles/new', (req, res) =>{
+router.get('/admin/articles/new', adminAuth,(req, res) =>{
     Categorie.findAll()
     .then(categories => {
         res.render('admin/articles/new', {
@@ -67,7 +69,7 @@ router.post('/articles/delete', (req, res) => {
     }
 })
 
-router.get('/admin/articles/edit/:id', (req, res) => {
+router.get('/admin/articles/edit/:id',adminAuth, (req, res) => {
 
     var id = req.params.id;
 

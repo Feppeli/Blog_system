@@ -2,8 +2,9 @@ const express = require("express");
 const User = require("./User");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const adminAuth = require('../midllewares/adminAuth')
 
-router.get("/admin/users", (req, res) => {
+router.get("/admin/users", adminAuth,(req, res) => {
   User.findAll().then((users) => {
     res.render("admin/users/index", {
       users: users,
@@ -62,14 +63,16 @@ router.post('/authenticate', (req, res) => {
     }
   }).then(user => {
     if(user != undefined){
+      console.log(email)
+      console.log(password)
       var correct = bcrypt.compareSync(password, user.password)
       
-      if(correct){
+      if(correct == true){
         req.session.user = {
           id: user.id,
           email: user.email
         }
-        res.json(req.session.user)
+        res.redirect('/admin/articles')
       }else{
         res.redirect('/login')
       }
@@ -77,6 +80,12 @@ router.post('/authenticate', (req, res) => {
       res.redirect('/login')
     }
   })
+})
+
+router.get('/logout', (req, res) => {
+  req.session.user = undefined;
+
+  res.redirect('/')
 })
 
 module.exports = router;
