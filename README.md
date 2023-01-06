@@ -10,6 +10,7 @@ Foi um projeto de dificuldade mediana onde encontrei alguns obstáculos, toda vi
 - Mysql
 - Bootstrap
 - EJS
+- Tiny mce
 
 libs e frameworks🌐
 
